@@ -6,18 +6,41 @@ import {
   BookBox,
   PopularBooksHeader,
   BookInfo,
-  Stars,
   ImageContainer,
+  StarsContainer,
 } from './styles'
-import Book from '../../../../public/images/books/Book.png'
 import Image from 'next/image'
+import { Book } from '@/pages/api/books/get-books.api'
+import { Rating } from '@/pages/api/ratings/get-ratings.api'
+import { Stars } from '../stars'
 
-export function PopularBooks() {
+interface PopularBooksProps {
+  books: Book[]
+  ratings: Rating[]
+  openModal: (id: string) => void
+}
+
+export function PopularBooks({ books, ratings, openModal }: PopularBooksProps) {
+  const booksSortedByPopularity = books.sort(
+    (a, b) => b.ratings.length - a.ratings.length,
+  )
+
+  const popularBooks = booksSortedByPopularity.slice(0, 3)
+
+  function calculateRating(id: string) {
+    const bookRatings = ratings.filter((rating) => rating.book_id === id)
+
+    const ratingAvg =
+      bookRatings.reduce((acc, curr) => curr.rate + acc, 0) / bookRatings.length
+
+    return ratingAvg
+  }
+
   return (
     <PopularBooksContainer>
       <PopularBooksHeader>
         <span>Livros populares</span>
-        <Link href="">
+        <Link href="/explore">
           <span>
             Ver todos <CaretRight />
           </span>
@@ -25,19 +48,23 @@ export function PopularBooks() {
       </PopularBooksHeader>
 
       <BookList>
-        <BookBox>
-          <ImageContainer>
-            <Image width={64} src={Book} alt="" />
-          </ImageContainer>
-          <BookInfo>
-            <h1>A revolução dos bichos</h1>
-            <span>George Ordell</span>
+        {popularBooks.map((book) => {
+          return (
+            <BookBox onClick={() => openModal(book.id)} key={book.id}>
+              <ImageContainer>
+                <Image src={book.cover_url} height={94} width={64} alt="" />
+              </ImageContainer>
+              <BookInfo>
+                <h1>{book.name}</h1>
+                <span>{book.author}</span>
 
-            <Stars>
-              <Star weight="fill" />
-            </Stars>
-          </BookInfo>
-        </BookBox>
+                <StarsContainer>
+                  <Stars rating={calculateRating(book.id)} size={16} />
+                </StarsContainer>
+              </BookInfo>
+            </BookBox>
+          )
+        })}
       </BookList>
     </PopularBooksContainer>
   )

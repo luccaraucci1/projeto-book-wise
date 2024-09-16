@@ -3,7 +3,7 @@ import { styled } from '../../../../stitches.config'
 export const PopularBooksContainer = styled('div', {
   minWidth: '300px',
 
-  marginTop: '110px',
+  marginTop: '117px',
   marginRight: '$8',
 
   span: {
@@ -44,7 +44,11 @@ export const PopularBooksHeader = styled('div', {
   },
 })
 
-export const BookList = styled('div', {})
+export const BookList = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  gap: '$2',
+})
 
 export const BookBox = styled('div', {
   background: '$gray700',
@@ -52,6 +56,7 @@ export const BookBox = styled('div', {
   padding: '$4',
   borderRadius: '$md',
   gap: '$4',
+  cursor: 'pointer',
 
   '&:hover': {
     outline: '2px solid $gray600',
@@ -76,8 +81,9 @@ export const BookInfo = styled('div', {
   flexDirection: 'column',
 })
 
-export const Stars = styled('div', {
+export const StarsContainer = styled('div', {
   marginTop: 'auto',
+  padding: '$2 0',
   svg: {
     color: '$purple100',
   },

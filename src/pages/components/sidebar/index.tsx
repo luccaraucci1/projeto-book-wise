@@ -1,20 +1,34 @@
-import { ChartLineUp, Binoculars, SignOut, User } from 'phosphor-react'
+import { ChartLineUp, Binoculars, SignOut, SignIn, User } from 'phosphor-react'
 import { SidebarContainer, SidebarItems, Item, LoginOrLogout } from './styles'
 import Image from 'next/image'
 import Logo from '../../../../public/images/Logo.svg'
 import Link from 'next/link'
 
 import { ProfileImage } from '../profile-image'
+import { signOut, useSession } from 'next-auth/react'
+import { useRouter } from 'next/router'
 
 interface SidebarProps {
   activePage: 'profile' | 'home' | 'explore'
 }
 
+export function Sidebar({ activePage }: SidebarProps) {
+  const session = useSession()
+  const router = useRouter()
 
-export function Sidebar({activePage} : SidebarProps) {
+  const userLogged = session.status === 'authenticated'
+
+  async function handleSignOut() {
+    await signOut()
+  }
+
+  async function handleRedirectToLogin() {
+    await router.push('/login')
+  }
+
   return (
     <SidebarContainer>
-      <Image alt="Logo" src={Logo} />
+      <Image alt="Logo" width={132} src={Logo} />
 
       <SidebarItems>
         <Link href="/">
@@ -34,12 +48,19 @@ export function Sidebar({activePage} : SidebarProps) {
         </Link>
       </SidebarItems>
 
-      <LoginOrLogout>
-        {/* }<span>Fazer login</span> <SignIn size={22} />{ */}
-        <ProfileImage width={32} />
-        <span>Lucca</span>
-        <SignOut color="#f75a68" size={22} />
-      </LoginOrLogout>
+      {userLogged ? (
+        <LoginOrLogout logged={userLogged}>
+          {session.data.user?.image && (
+            <ProfileImage src={session.data.user?.image} width={32} />
+          )}
+          <span>{session.data.user?.name?.split(' ')[0]}</span>
+          <SignOut color="#f75a68" size={22} onClick={handleSignOut} />
+        </LoginOrLogout>
+      ) : (
+        <LoginOrLogout logged={userLogged} onClick={handleRedirectToLogin}>
+          <span>Fazer login</span> <SignIn size={22} />
+        </LoginOrLogout>
+      )}
     </SidebarContainer>
   )
 }

@@ -1,6 +1,7 @@
 import { styled } from '../../../stitches.config'
 
 export const MyBooks = styled('div', {
+  width: '100%',
   span: {
     fontSize: '$sm',
   },
@@ -27,6 +28,8 @@ export const InputContainer = styled('div', {
 
 export const BookContainer = styled('div', {
   marginTop: '$6',
+  width: '100%',
+
   '>p': {
     marginBottom: '$2',
   },
@@ -65,6 +68,6 @@ export const BookContent = styled('div', {
   marginTop: '$8',
 })
 
-export const Stars = styled('div', {
+export const StarsContainer = styled('div', {
   marginTop: 'auto',
 })

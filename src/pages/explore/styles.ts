@@ -1,11 +1,23 @@
 import { styled } from '../../../stitches.config'
 
+export const Overlay = styled('div', {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  display: 'block',
+  zIndex: 1,
+})
+
 export const Header = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
   lineHeight: '$tall',
   gap: '$2',
   marginBottom: '$12',
+  maxWidth: 'calc(20rem * 4)',
 
   h1: {
     fontSize: '24px',
@@ -33,6 +45,7 @@ export const InputContainer = styled('div', {
   },
   svg: {
     marginLeft: 'auto',
+    color: '$gray500',
   },
 })
 
@@ -40,14 +53,16 @@ export const ExploreContainer = styled('div', {})
 
 export const BookCategories = styled('div', {
   display: 'flex',
+  flexWrap: 'wrap',
   gap: '$4',
 })
-export const Category = styled('div', {
+export const CategoryItem = styled('div', {
   color: '$purple100',
   outline: '1px solid $purple100',
   borderRadius: '$full',
   padding: '$1 $3',
   fontSize: '$sm',
+  cursor: 'pointer',
 
   variants: {
     selected: {
@@ -73,6 +88,11 @@ export const BookBox = styled('div', {
   padding: '$4',
   borderRadius: '$md',
   gap: '$4',
+  cursor: 'pointer',
+
+  '&:hover': {
+    outline: '2px solid $gray500',
+  },
 
   '@bp1': {
     width: '19.5rem',
@@ -99,6 +119,11 @@ export const Info = styled('div', {
   },
 })
 
-export const Stars = styled('div', {
+export const StarsContainer = styled('div', {
   marginTop: 'auto',
+  width: '100%',
+
+  svg: {
+    color: '$purple100',
+  },
 })

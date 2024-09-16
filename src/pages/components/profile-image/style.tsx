@@ -1,4 +1,4 @@
-import { styled } from "../../../../stitches.config"
+import { styled } from '../../../../stitches.config'
 
 export const UserImage = {
   borderRadius: '100%',
@@ -11,5 +11,6 @@ export const ImageBorder = styled('div', {
   background: '$gradient-vertical',
   borderRadius: '$full',
   width: 'fit-content',
+  height: 'fit-content',
   padding: '2px',
 })

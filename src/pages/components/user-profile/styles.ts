@@ -1,31 +1,27 @@
 import { styled } from '../../../../stitches.config'
 
 export const ProfileContainer = styled('div', {
-
   height: 'fit-content',
   marginTop: '125px',
   marginRight: '70px',
   borderLeft: '1px solid $gray700',
-  width: '900px',
+  width: '300px',
   padding: '0 $8',
-
 
   span: {
     fontSize: '$sm',
-    color: '$gray400'
-  }
- 
+    color: '$gray400',
+  },
 })
 
 export const UserInfo = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  
-  h1:{
-    fontSize: '$lg'
-  }
-  
+
+  h1: {
+    fontSize: '$lg',
+  },
 })
 
 export const UserImage = {
@@ -39,8 +35,7 @@ export const ImageBorder = styled('div', {
   background: '$gradient-vertical',
   borderRadius: '$full',
   padding: '2px',
-  width: 'fit-content'
-  
+  width: 'fit-content',
 })
 
 export const Info = styled('div', {
@@ -50,14 +45,13 @@ export const Info = styled('div', {
   alignItems: 'center',
 
   '&::after': {
-    content:'',
+    content: '',
     margin: '$8 0',
     borderRadius: '$full',
     background: '$gradient-horizontal',
     width: '32px',
-    height: '4px'
-
-  }
+    height: '4px',
+  },
 })
 
 export const ProfileItems = styled('div', {
@@ -74,15 +68,12 @@ export const Item = styled('div', {
   width: '200px',
 
   h1: {
-    fontSize: '$md'
+    fontSize: '$md',
   },
 
   svg: {
-    color: '$green100'
-  }
+    color: '$green100',
+  },
 })
 
-export const ItemInfo = styled('div', {
-  
-})
-
+export const ItemInfo = styled('div', {})

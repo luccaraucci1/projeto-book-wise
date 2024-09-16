@@ -6,6 +6,7 @@ export const Container = styled('div', {
 })
 
 export const MainContainer = styled('div', {
+  width: '100%',
   margin: '$10',
   marginLeft: '275px',
 })
@@ -38,6 +39,7 @@ export const Review = styled('div', {
   background: '$gray700',
   padding: '$6',
   borderRadius: '$md',
+  marginBottom: '$4',
 
   '@bp1': {
     backgoundColor: 'red',
@@ -47,7 +49,7 @@ export const Review = styled('div', {
 export const ReviewHeader = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',
-  marginBottom: '$8',
+  marginBottom: '$6',
 })
 
 export const ReviewInfo = styled('div', {
@@ -77,7 +79,7 @@ export const ImageBorder = styled('div', {
 
 export const Info = styled('div', {})
 
-export const Stars = styled('div', {
+export const StarsContainer = styled('div', {
   svg: {
     color: '$purple100',
   },
@@ -85,10 +87,13 @@ export const Stars = styled('div', {
 
 export const ReviewContent = styled('div', {
   display: 'flex',
+
   gap: '$4',
 })
 
 export const Content = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
   h1: {
     fontSize: '$lg',
     margin: 0,
@@ -104,4 +109,6 @@ export const ContentHeader = styled('div', {
 
 export const ReviewText = styled('p', {
   fontSize: '$sm',
+
+  color: '$gray300',
 })

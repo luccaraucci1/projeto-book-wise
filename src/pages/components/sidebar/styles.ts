@@ -7,7 +7,7 @@ export const SidebarContainer = styled('div', {
   flexDirection: 'column',
   alignItems: 'center',
   padding: '$10',
-
+  maxWidth: '232px',
   borderRadius: '$md',
 
   position: 'fixed',
@@ -63,10 +63,20 @@ export const LoginOrLogout = styled('div', {
   marginTop: 'auto',
   justifyContent: 'center',
   alignItems: 'center',
+  cursor: 'default',
   svg: {
-    color: '$green100',
     cursor: 'pointer',
   },
+
+  variants: {
+    logged: {
+      false: {
+        cursor: 'pointer',
+        svg: {
+          color: '$green100',
+          cursor: 'pointer',
+        },
+      },
+    },
+  },
 })
-
-

@@ -12,4 +12,16 @@ export const globalStyles = globalCss({
     color: '$gray100',
     fontFamily: '$default',
   },
+
+  '::-webkit-scrollbar': {
+    width: '8px',
+    height: '12px',
+  },
+  '::-webkit-scrollbar-track': {
+    background: '$gray700',
+  },
+  '::-webkit-scrollbar-thumb': {
+    background: '$gray600',
+    borderRadius: '6px',
+  },
 })
