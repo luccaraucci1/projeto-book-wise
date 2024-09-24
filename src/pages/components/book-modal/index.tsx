@@ -47,7 +47,6 @@ interface BookModalProps {
   calculateRating: (id: string) => number
   setShowLoginModal: React.Dispatch<SetStateAction<boolean>>
   selectedReviewId?: string
-  setSelectedReviewId?: React.Dispatch<SetStateAction<string>>
 }
 
 export function BookModal({
@@ -64,13 +63,17 @@ export function BookModal({
   const isLogged = session.status === 'authenticated'
   const [showNewReviewForm, setShowNewReviewForm] = useState(false)
 
+  if (!active) {
+    return null
+  }
+
   const selectedBookRatingsOrdered = selectedBook?.ratings.sort((a, b) => {
     return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
   })
 
-  if (!active) {
-    return null
-  }
+  const selectedReview = selectedBookRatingsOrdered?.find((rating) => {
+    return rating.id === selectedReviewId
+  })
 
   const email = session.data?.user?.email
 
@@ -175,9 +178,45 @@ export function BookModal({
             )}
 
             <ReviewsList>
+              {selectedReview && (
+                <Review selected={true}>
+                  <ReviewHeader>
+                    <UserInfo>
+                      <ProfileImage
+                        src={selectedReview.user.image}
+                        width={40}
+                      />
+                      <UserInfoText>
+                        <div>
+                          <Link href={`/profile/${selectedReview.user_id}`}>
+                            {selectedReview.user.name}
+                          </Link>
+                        </div>
+
+                        <span>
+                          {formatDistanceToNow(selectedReview.created_at, {
+                            addSuffix: true,
+                            locale: ptBR,
+                          })}
+                        </span>
+                      </UserInfoText>
+                    </UserInfo>
+                    <ReviewStars>
+                      <Stars rating={selectedReview.rate} size={16} />
+                    </ReviewStars>
+                  </ReviewHeader>
+                  <ReviewContent>
+                    <p>{selectedReview.description}</p>
+                  </ReviewContent>
+                </Review>
+              )}
+
               {selectedBookRatingsOrdered?.map((rating) => {
                 return (
-                  <Review key={rating.id}>
+                  <Review
+                    key={rating.id}
+                    hidden={rating.id === selectedReviewId}
+                  >
                     <ReviewHeader>
                       <UserInfo>
                         <ProfileImage src={rating.user.image} width={40} />

@@ -11,7 +11,7 @@ export default async function handler(
 
   const { description, rate, email, bookId, created_at } = req.body
 
-  const rating = await prisma.rating.create({
+  await prisma.rating.create({
     data: {
       description,
       created_at,

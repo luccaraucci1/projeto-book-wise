@@ -1,5 +1,5 @@
 import { Star } from 'phosphor-react'
-import React, { SetStateAction, useState } from 'react'
+import React, { useState } from 'react'
 
 interface ReviewStarsFiller {
   starsRating: number

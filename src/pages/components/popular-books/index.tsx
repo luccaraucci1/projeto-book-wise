@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { CaretRight, Star } from 'phosphor-react'
+import { CaretRight } from 'phosphor-react'
 import {
   BookList,
   PopularBooksContainer,

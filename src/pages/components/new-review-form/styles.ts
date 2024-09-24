@@ -72,6 +72,13 @@ export const NewReviewButtons = styled('div', {
     alignItems: 'center',
     justifyContent: 'center',
   },
+
+  button: {
+    '&:disabled': {
+      cursor: 'not-allowed',
+      background: 'gray',
+    },
+  },
 })
 
 export const Error = styled('p', {

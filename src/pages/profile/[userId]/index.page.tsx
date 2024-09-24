@@ -14,7 +14,7 @@ import {
 import Image from 'next/image'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
-import { UserProfile } from '../../components/user-profile/index.page'
+import { UserProfile } from '../../components/user-profile'
 import { api } from '@/libs/axios'
 import { User } from '../../api/users/get-users.api'
 import { Stars } from '../../components/stars'

@@ -139,8 +139,6 @@ export const ReviewButton = styled('div', {
   },
 })
 
-export const AlreadyReviewedButton = styled('div', {})
-
 export const ReviewsList = styled('div', {})
 
 export const Review = styled('div', {
@@ -160,6 +158,11 @@ export const Review = styled('div', {
     selected: {
       true: {
         background: '$gray600',
+      },
+    },
+    hidden: {
+      true: {
+        display: 'none',
       },
     },
   },

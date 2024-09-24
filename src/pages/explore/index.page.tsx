@@ -1,4 +1,4 @@
-import { Binoculars, MagnifyingGlass, Star, StarHalf } from 'phosphor-react'
+import { Binoculars, MagnifyingGlass } from 'phosphor-react'
 import { Sidebar } from '../components/sidebar'
 
 import { Container, MainContainer } from '../styles'
@@ -25,7 +25,6 @@ import { Stars } from '../components/stars'
 import { Book } from '../api/books/get-books.api'
 import { Rating } from '../api/ratings/get-ratings.api'
 import { Category } from '../api/books/get-categories.api'
-import { User } from '../api/users/get-users.api'
 import { LoginModal } from '../components/login-modal'
 
 interface ExplorePageProps {

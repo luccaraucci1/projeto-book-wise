@@ -9,8 +9,7 @@ import {
   StarsContainer,
 } from './styles'
 import Image from 'next/image'
-import Book from '../../../../public/images/books/Book.png'
-import { CaretRight, Star } from 'phosphor-react'
+import { CaretRight } from 'phosphor-react'
 import Link from 'next/link'
 import { Rating } from '@/pages/api/ratings/get-ratings.api'
 import { formatDistanceToNow } from 'date-fns'

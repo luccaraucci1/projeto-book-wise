@@ -46,7 +46,7 @@ export function NewReviewForm({
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     setValue,
   } = useForm<Post>({
     resolver: zodResolver(postFormSchema),
@@ -116,7 +116,7 @@ export function NewReviewForm({
         )}
         {errors.rate?.message && <Error>{errors.rate?.message}</Error>}
         <NewReviewButtons>
-          <button>
+          <button disabled={isSubmitting}>
             <X
               size={24}
               weight="bold"
@@ -124,7 +124,7 @@ export function NewReviewForm({
               onClick={() => handleToggleNewReviewForm(false)}
             />
           </button>
-          <button type="submit">
+          <button disabled={isSubmitting} type="submit">
             <Check size={24} weight="bold" color="#50b2c0" />
           </button>
         </NewReviewButtons>

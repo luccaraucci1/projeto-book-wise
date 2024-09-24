@@ -165,7 +165,13 @@ export default function Home({
                       {rating.description.length > 300 ? (
                         <>
                           {rating.description.slice(0, 300)}...{' '}
-                          <More>Ver mais</More>
+                          <More
+                            onClick={() =>
+                              handleOpenModal(rating.book_id, rating.id)
+                            }
+                          >
+                            Ver mais
+                          </More>
                         </>
                       ) : (
                         rating.description
