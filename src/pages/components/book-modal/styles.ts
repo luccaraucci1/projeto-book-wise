@@ -47,11 +47,12 @@ export const BookInfoTitleAndReviews = styled('div', {
 
 export const BookInfoTitle = styled('div', {
   h1: {
-    fontSize: '$md',
+    fontSize: '$lg',
     marginBottom: '$2',
   },
   p: {
     color: '$gray300',
+    fontSize: '$sm',
   },
 })
 
@@ -154,6 +155,14 @@ export const Review = styled('div', {
   svg: {
     color: '$purple100',
   },
+
+  variants: {
+    selected: {
+      true: {
+        background: '$gray600',
+      },
+    },
+  },
 })
 
 export const ReviewHeader = styled('div', {
@@ -170,10 +179,22 @@ export const ReviewHeader = styled('div', {
 
 export const UserInfo = styled('div', {
   display: 'flex',
+
   gap: '$4',
 })
 
-export const UserInfoText = styled('div', {})
+export const UserInfoText = styled('div', {
+  a: {
+    all: 'unset',
+    fontSize: '$md',
+    fontWeight: '$bold',
+    cursor: 'pointer',
+  },
+
+  span: {
+    color: '$gray400',
+  },
+})
 
 export const ReviewStars = styled('div', {})
 

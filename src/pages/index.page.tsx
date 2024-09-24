@@ -9,6 +9,7 @@ import {
   Header,
   Info,
   MainContainer,
+  More,
   RecentReviewsContainer,
   Review,
   ReviewContent,
@@ -28,9 +29,11 @@ import { YourLastRead } from './components/your-last-read'
 import { useSession } from 'next-auth/react'
 import { User } from './api/users/get-users.api'
 import { Book } from './api/books/get-books.api'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { BookModal } from './components/book-modal'
 import { Category } from './api/books/get-categories.api'
+import Link from 'next/link'
+import { LoginModal } from './components/login-modal'
 
 interface HomePageProps {
   ratings: Rating[]
@@ -47,6 +50,10 @@ export default function Home({
 }: HomePageProps) {
   const [showModal, setShowModal] = useState(false)
   const [selectedBook, setSelectedBook] = useState<Book>()
+  const [showLoginModal, setShowLoginModal] = useState(false)
+  const [selectedReviewId, setSelectedReviewId] = useState<string | undefined>(
+    undefined,
+  )
   const session = useSession()
 
   const user = users.find((user) => user.email === session.data?.user?.email)
@@ -65,15 +72,27 @@ export default function Home({
     return ratingAvg
   }
 
-  function handleOpenModal(id: string) {
+  function handleOpenModal(id: string, ratingId?: string | undefined) {
     const bookToShow = books.find((book) => {
       return book.id === id
     })
 
     setSelectedBook(bookToShow)
-
+    setSelectedReviewId(ratingId)
     setShowModal(true)
   }
+
+  useEffect(() => {
+    const body = document.body
+    if (showModal) {
+      body.style.overflow = 'hidden'
+      body.style.height = '10%%'
+    } else {
+      const body = document.body
+      body.style.overflow = ''
+      body.style.height = ''
+    }
+  }, [showModal])
 
   return (
     <Container>
@@ -85,6 +104,12 @@ export default function Home({
         setSelectedBook={setSelectedBook}
         categories={categories}
         calculateRating={calculateRating}
+        setShowLoginModal={setShowLoginModal}
+        selectedReviewId={selectedReviewId}
+      />
+      <LoginModal
+        active={showLoginModal}
+        setShowLoginModal={setShowLoginModal}
       />
       <MainContainer>
         <Header>
@@ -105,7 +130,11 @@ export default function Home({
                     <ProfileImage src={rating.user.image} width={40} />
 
                     <Info>
-                      <h1>{rating.user.name}</h1>
+                      <div>
+                        <Link href={`/profile/${rating.user_id}`}>
+                          {rating.user.name}
+                        </Link>
+                      </div>
 
                       <span>
                         {formatDistanceToNow(rating.created_at, {
@@ -132,7 +161,16 @@ export default function Home({
                       <h1>{rating.book.name}</h1>
                       <span>{rating.book.author}</span>
                     </ContentHeader>
-                    <ReviewText>{rating.description}</ReviewText>
+                    <ReviewText>
+                      {rating.description.length > 300 ? (
+                        <>
+                          {rating.description.slice(0, 300)}...{' '}
+                          <More>Ver mais</More>
+                        </>
+                      ) : (
+                        rating.description
+                      )}
+                    </ReviewText>
                   </Content>
                 </ReviewContent>
               </Review>

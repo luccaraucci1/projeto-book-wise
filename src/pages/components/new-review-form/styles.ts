@@ -14,10 +14,7 @@ export const NewReviewContainer = styled('div', {
   padding: '$5',
   borderRadius: '$md',
   marginBottom: '$4',
-  p: {
-    fontSize: '$sm',
-    color: '$gray300',
-  },
+
   svg: {
     color: '$purple100',
   },
@@ -75,4 +72,9 @@ export const NewReviewButtons = styled('div', {
     alignItems: 'center',
     justifyContent: 'center',
   },
+})
+
+export const Error = styled('p', {
+  color: 'red',
+  fontSize: '$sm',
 })

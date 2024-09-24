@@ -10,7 +10,7 @@ import {
   NewReviewUserInfo,
   NewReviewStars,
   NewReviewButtons,
-  Show,
+  Error,
 } from './styles'
 import { useSession } from 'next-auth/react'
 import React, { SetStateAction, useEffect, useState } from 'react'
@@ -27,7 +27,9 @@ const postFormSchema = z.object({
   description: z
     .string()
     .min(3, { message: 'A avaliação deve ter no mínimo 3 caracteres' }),
-  rate: z.number().optional(),
+  rate: z
+    .number()
+    .min(1, { message: 'A avaliação deve ter no mínimo uma (1) estrela' }),
 })
 
 export type Post = z.infer<typeof postFormSchema>
@@ -61,6 +63,7 @@ export function NewReviewForm({
       })
 
       handleToggleNewReviewForm(false)
+
       getNewRatings()
     } catch (error) {
       console.error('Error submitting rating:', error)
@@ -107,6 +110,11 @@ export function NewReviewForm({
           rows={8}
           placeholder="Escreva sua avaliação"
         />
+
+        {errors.description?.message && (
+          <Error>{errors.description?.message}</Error>
+        )}
+        {errors.rate?.message && <Error>{errors.rate?.message}</Error>}
         <NewReviewButtons>
           <button>
             <X

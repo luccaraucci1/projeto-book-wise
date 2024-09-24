@@ -77,7 +77,13 @@ export const ImageBorder = styled('div', {
   padding: '2px',
 })
 
-export const Info = styled('div', {})
+export const Info = styled('div', {
+  a: {
+    all: 'unset',
+    cursor: 'pointer',
+    fontWeight: '$bold',
+  },
+})
 
 export const StarsContainer = styled('div', {
   svg: {
@@ -98,17 +104,23 @@ export const Content = styled('div', {
     fontSize: '$lg',
     margin: 0,
   },
-  span: {
-    color: '$gray400',
-  },
 })
 
 export const ContentHeader = styled('div', {
   marginBottom: '$4',
+  span: {
+    color: '$gray400',
+  },
 })
 
 export const ReviewText = styled('p', {
   fontSize: '$sm',
 
   color: '$gray300',
+})
+
+export const More = styled('span', {
+  color: '$purple100',
+  fontWeight: '$bold',
+  cursor: 'pointer',
 })

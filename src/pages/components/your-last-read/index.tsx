@@ -19,21 +19,19 @@ import { Stars } from '../stars'
 
 interface YourLastReadProps {
   lastRead: Rating
-  openModal: (id: string) => void
+  openModal: (id: string, ratingId?: string | undefined) => void
 }
 
 export function YourLastRead({ lastRead, openModal }: YourLastReadProps) {
-  console.log(lastRead)
-
   return (
-    <YourLastReadContainer onClick={() => openModal(lastRead.book_id)}>
+    <YourLastReadContainer>
       <YourLastReadHeader>
         <span>Sua última leitura</span>
         <Link href="/profile">
           <span>Ver Todas</span> <CaretRight size={16} />
         </Link>
       </YourLastReadHeader>
-      <YourLastReadBox>
+      <YourLastReadBox onClick={() => openModal(lastRead.book_id, lastRead.id)}>
         <Image
           alt="Capa do livro"
           src={lastRead.book.cover_url}
@@ -56,7 +54,13 @@ export function YourLastRead({ lastRead, openModal }: YourLastReadProps) {
             <h1>{lastRead.book.name}</h1>
             <span>{lastRead.book.author}</span>
           </Title>
-          <Text>{lastRead.description}</Text>
+          <Text>
+            {lastRead.description.length > 300 ? (
+              <>{lastRead.description.slice(0, 300)}...</>
+            ) : (
+              lastRead.description
+            )}
+          </Text>
         </YourLastReadContent>
       </YourLastReadBox>
     </YourLastReadContainer>

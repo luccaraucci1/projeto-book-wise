@@ -11,6 +11,17 @@ export const Overlay = styled('div', {
   zIndex: 1,
 })
 
+export const LoginOverlay = styled('div', {
+  position: 'fixed',
+  top: 0,
+  left: 0,
+  width: '100%',
+  height: '100%',
+  backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  display: 'block',
+  zIndex: 2,
+})
+
 export const Header = styled('div', {
   display: 'flex',
   justifyContent: 'space-between',

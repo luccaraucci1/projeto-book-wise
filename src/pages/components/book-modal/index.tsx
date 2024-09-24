@@ -36,6 +36,7 @@ import { useSession } from 'next-auth/react'
 import { NewReviewForm } from '../new-review-form'
 import { formatDistanceToNow, isToday } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
+import Link from 'next/link'
 
 interface BookModalProps {
   active: boolean
@@ -44,6 +45,9 @@ interface BookModalProps {
   selectedBook: Book | undefined
   categories: Category[]
   calculateRating: (id: string) => number
+  setShowLoginModal: React.Dispatch<SetStateAction<boolean>>
+  selectedReviewId?: string
+  setSelectedReviewId?: React.Dispatch<SetStateAction<string>>
 }
 
 export function BookModal({
@@ -53,6 +57,8 @@ export function BookModal({
   setSelectedBook,
   categories,
   calculateRating,
+  setShowLoginModal,
+  selectedReviewId,
 }: BookModalProps) {
   const session = useSession()
   const isLogged = session.status === 'authenticated'
@@ -82,11 +88,11 @@ export function BookModal({
     return bookCategories
   }
 
-  function handleToggleNewReviewForm(show: boolean) {
-    if (show) {
-      setShowNewReviewForm(true)
+  function handleToggleNewReviewForm() {
+    if (isLogged) {
+      setShowNewReviewForm(!showNewReviewForm)
     } else {
-      setShowNewReviewForm(false)
+      setShowLoginModal(true)
     }
   }
 
@@ -154,7 +160,7 @@ export function BookModal({
               {userAlreadyReviewed ? (
                 ''
               ) : (
-                <ReviewButton onClick={() => handleToggleNewReviewForm(true)}>
+                <ReviewButton onClick={() => handleToggleNewReviewForm()}>
                   Avaliar
                 </ReviewButton>
               )}
@@ -176,7 +182,11 @@ export function BookModal({
                       <UserInfo>
                         <ProfileImage src={rating.user.image} width={40} />
                         <UserInfoText>
-                          <h1>{rating.user.name}</h1>
+                          <div>
+                            <Link href={`/profile/${rating.user_id}`}>
+                              {rating.user.name}
+                            </Link>
+                          </div>
 
                           <span>
                             {formatDistanceToNow(rating.created_at, {

@@ -19,10 +19,10 @@ export default async function handler(
     return res.status(405).end()
   }
 
-  const email = String(req.query.email)
+  const userId = String(req.query.userId)
 
   const user = await prisma.user.findUnique({
-    where: { email },
+    where: { id: userId },
     include: {
       Rating: {
         include: {

@@ -41,11 +41,13 @@ export function Sidebar({ activePage }: SidebarProps) {
             <Binoculars size={22} /> <span>Explorar</span>
           </Item>
         </Link>
-        <Link href="/profile">
-          <Item active={activePage === 'profile'}>
-            <User size={22} /> <span>Perfil</span>
-          </Item>
-        </Link>
+        {userLogged && (
+          <Link href="/profile">
+            <Item active={activePage === 'profile'}>
+              <User size={22} /> <span>Perfil</span>
+            </Item>
+          </Link>
+        )}
       </SidebarItems>
 
       {userLogged ? (

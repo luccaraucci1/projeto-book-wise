@@ -26,6 +26,7 @@ import { Book } from '../api/books/get-books.api'
 import { Rating } from '../api/ratings/get-ratings.api'
 import { Category } from '../api/books/get-categories.api'
 import { User } from '../api/users/get-users.api'
+import { LoginModal } from '../components/login-modal'
 
 interface ExplorePageProps {
   books: Book[]
@@ -44,6 +45,7 @@ export default function Explore({
   const [inputValue, setInputValue] = useState('')
   const [showModal, setShowModal] = useState(false)
   const [selectedBook, setSelectedBook] = useState<Book>()
+  const [showLoginModal, setShowLoginModal] = useState(false)
 
   function calculateRating(id: string) {
     const bookRatings = ratings.filter((rating) => rating.book_id === id)
@@ -110,12 +112,17 @@ export default function Explore({
   return (
     <Container>
       <BookModal
+        setShowLoginModal={setShowLoginModal}
         active={showModal}
         setVisibility={setShowModal}
         selectedBook={selectedBook}
         setSelectedBook={setSelectedBook}
         categories={categories}
         calculateRating={calculateRating}
+      />
+      <LoginModal
+        active={showLoginModal}
+        setShowLoginModal={setShowLoginModal}
       />
       <Sidebar activePage="explore" />
       <MainContainer>

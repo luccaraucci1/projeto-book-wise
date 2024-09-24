@@ -1,6 +1,6 @@
 import { MagnifyingGlass, User as UserIcon } from 'phosphor-react'
-import { Sidebar } from '../components/sidebar'
-import { Container, Header, MainContainer } from '../styles'
+import { Sidebar } from '../../components/sidebar'
+import { Container, Header, MainContainer } from '../../styles'
 import {
   MyBooks,
   InputContainer,
@@ -14,19 +14,18 @@ import {
 import Image from 'next/image'
 import { formatDistanceToNow } from 'date-fns'
 import { ptBR } from 'date-fns/locale/pt-BR'
-import { UserProfile } from '../components/user-profile/index.page'
+import { UserProfile } from '../../components/user-profile/index.page'
 import { api } from '@/libs/axios'
-import { User } from '../api/users/get-users.api'
-import { useSession } from 'next-auth/react'
-import { Stars } from '../components/stars'
+import { User } from '../../api/users/get-users.api'
+import { Stars } from '../../components/stars'
 import { useEffect, useState } from 'react'
-import { Rating } from '../api/ratings/get-ratings.api'
+import { Rating } from '../../api/ratings/get-ratings.api'
 import { useRouter } from 'next/router'
 
-export default function Profile() {
-  const session = useSession()
+export default function AnotherProfile() {
   const router = useRouter()
-  const email = session.data?.user?.email
+
+  const userId = router.query.userId
 
   const [user, setUser] = useState<User | undefined>(undefined)
 
@@ -44,8 +43,8 @@ export default function Profile() {
 
   useEffect(() => {
     async function fetchData() {
-      const userResponse = await api.get('/users/get-user', {
-        params: { email },
+      const userResponse = await api.get('/users/get-user-from-id', {
+        params: { userId },
       })
       const user = userResponse.data.user
       const myReviewsSorted = user?.Rating.sort((a: Rating, b: Rating) => {
@@ -59,7 +58,7 @@ export default function Profile() {
     }
 
     fetchData()
-  }, [email])
+  }, [userId])
 
   useEffect(() => {
     if (inputValue) {
@@ -71,16 +70,6 @@ export default function Profile() {
       setMyReviewsList(myReviews)
     }
   }, [inputValue, myReviews])
-
-  useEffect(() => {
-    async function RedirectUserIfNotLogged() {
-      if (session.status !== 'authenticated') {
-        await router.push('/')
-      }
-    }
-
-    RedirectUserIfNotLogged()
-  })
 
   return (
     <Container>
